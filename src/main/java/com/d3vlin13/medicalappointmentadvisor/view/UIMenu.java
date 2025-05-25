@@ -3,9 +3,12 @@ package com.d3vlin13.medicalappointmentadvisor.view;
 import com.d3vlin13.medicalappointmentadvisor.util.Printer;
 
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class UIMenu {
-    static private final Scanner sc = new Scanner(System.in);
+    static private final Scanner SC = new Scanner(System.in);
+    static private final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+
 
     static public void showMenu() {
         Printer.logInfo("Welcome advisor");
@@ -55,6 +58,12 @@ public class UIMenu {
             switch (response) {
                 case 1:
                     Printer.logSystem("::Book an appointment");
+
+                    int currentMonth = LocalDate.now().getMonthValue();
+                    for (int i = 1; i <= 3; i++) {
+                        int nextMonthIndex = (currentMonth - 1 + i) % 12;
+                        Printer.logSystem(MONTHS[nextMonthIndex]);
+                    }
                     break;
 
                 case 2:
@@ -74,7 +83,7 @@ public class UIMenu {
 
     static private int ValidateIntegerInput() {
         try {
-            return Integer.parseInt(sc.nextLine());
+            return Integer.parseInt(SC.nextLine());
         } catch (NumberFormatException err) {
             return -1;
         }

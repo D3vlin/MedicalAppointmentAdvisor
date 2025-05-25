@@ -1,25 +1,17 @@
 package com.d3vlin13.medicalappointmentadvisor.model;
 
-public class Doctor {
-    private static int id = 0;
-    private String name;
+public class Doctor extends User {
     private String speciality;
 
-    public Doctor(String name) {
-        this.name = name;
-        id++;
+    public Doctor(String email, String password, String name) {
+        super(email, password, name);
     }
 
-    public void showName() {
-        System.out.println(name);
+    public String getSpeciality() {
+        return speciality;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", speciality='" + speciality + '\'' +
-                '}';
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
     }
 }
