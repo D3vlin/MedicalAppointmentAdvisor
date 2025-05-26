@@ -1,5 +1,7 @@
 package com.d3vlin13.medicalappointmentadvisor.model;
 
+import com.d3vlin13.medicalappointmentadvisor.enums.UserType;
+
 public class Patient extends User {
     private String birthday;
     private double weight;
@@ -7,7 +9,7 @@ public class Patient extends User {
     private String blood;
 
     public Patient(String email, String password, String name) {
-        super(email, password, name);
+        super(UserType.PATIENT, email, password, name);
     }
 
     public String getBirthday() {

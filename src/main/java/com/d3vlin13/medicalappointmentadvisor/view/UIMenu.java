@@ -1,18 +1,19 @@
 package com.d3vlin13.medicalappointmentadvisor.view;
 
+import com.d3vlin13.medicalappointmentadvisor.enums.UserType;
+import com.d3vlin13.medicalappointmentadvisor.model.User;
 import com.d3vlin13.medicalappointmentadvisor.util.Printer;
 
-import java.util.Scanner;
 import java.time.LocalDate;
 
 public class UIMenu {
-    static private final Scanner SC = new Scanner(System.in);
     static private final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 
     static public void showMenu() {
-        Printer.logInfo("Welcome advisor");
+        Printer.logInfo("Welcome user");
 
+        User userLogged = null;
         int response = 0;
 
         do {
@@ -22,25 +23,40 @@ public class UIMenu {
             Printer.logInfo("0. Exit");
             Printer.logIndicatorSystem();
 
-            response = ValidateIntegerInput();
+            response = Printer.ValidateIntegerInput();
 
             switch (response) {
-                case 1:
+                case 1 -> {
                     Printer.logSystem("Doctor");
-                    break;
+                    userLogged = UIAuth.showAuthMenu(UserType.DOCTOR);
+                    if (userLogged == null) {
+                        response = 0;
+                    } else {
+                        showDoctorMenu();
+                    }
+                }
 
-                case 2:
-                    showPatientMenu();
-                    break;
+                case 2 -> {
+                    Printer.logSystem("Patient");
+                    userLogged = UIAuth.showAuthMenu(UserType.PATIENT);
+                    if (userLogged == null) {
+                        response = 0;
+                    } else {
+                        showPatientMenu();
+                    }
+                }
 
-                case 0:
+                case 0 -> {
                     Printer.logSystem("Exit");
-                    break;
+                }
 
-                default:
-                    Printer.logWarn("Please select a correct answer!");
+                default -> Printer.logWarn("Please select a correct answer!");
             }
         } while (response != 0);
+    }
+
+    static private void showDoctorMenu() {
+
     }
 
     static private void showPatientMenu() {
@@ -53,7 +69,7 @@ public class UIMenu {
             Printer.logInfo("0. Return");
             Printer.logIndicatorSystem();
 
-            response = ValidateIntegerInput();
+            response = Printer.ValidateIntegerInput();
 
             switch (response) {
                 case 1:
@@ -79,13 +95,5 @@ public class UIMenu {
                     Printer.logWarn("Please select a correct answer!");
             }
         } while (response != 0);
-    }
-
-    static private int ValidateIntegerInput() {
-        try {
-            return Integer.parseInt(SC.nextLine());
-        } catch (NumberFormatException err) {
-            return -1;
-        }
     }
 }

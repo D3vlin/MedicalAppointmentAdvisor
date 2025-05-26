@@ -1,8 +1,10 @@
 package com.d3vlin13.medicalappointmentadvisor.util;
 
 import java.io.PrintStream;
+import java.util.Scanner;
 
 public class Printer {
+    private static final Scanner SC = new Scanner(System.in);
     private static final PrintStream printer = System.out;
 
     private static final String RESET = "\u001B[0m";
@@ -83,5 +85,17 @@ public class Printer {
             }
         }
         printer.println(WARN + "] Done!" + RESET + "\n");
+    }
+
+    static public String GetInput() {
+        return SC.nextLine();
+    }
+
+    static public int ValidateIntegerInput() {
+        try {
+            return Integer.parseInt(SC.nextLine());
+        } catch (NumberFormatException err) {
+            return -1;
+        }
     }
 }

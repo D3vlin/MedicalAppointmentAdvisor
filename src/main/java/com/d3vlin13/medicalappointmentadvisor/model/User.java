@@ -1,15 +1,19 @@
 package com.d3vlin13.medicalappointmentadvisor.model;
 
+import com.d3vlin13.medicalappointmentadvisor.enums.UserType;
+
 public abstract class User {
     private static int id = 0;
+    private final UserType userType;
     private String email;
     private String password;
     private String name;
     private String address;
     private String phoneNumber;
 
-    public User(String email, String password, String name) {
+    public User(UserType userType, String email, String password, String name) {
         id++;
+        this.userType = userType;
         this.email = email;
         this.password = password;
         this.name = name;
@@ -17,6 +21,10 @@ public abstract class User {
 
     public static int getId() {
         return id;
+    }
+
+    public UserType getUserType() {
+        return userType;
     }
 
     public String getEmail() {
