@@ -1,56 +1,35 @@
 package com.d3vlin13.medicalappointmentadvisor.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.Locale;
 
-public class Appointment implements ISchedulable {
-    private static int id = 0;
-    private Patient patient;
-    private Doctor doctor;
-    private Date date;
-    private String time;
+public abstract class Appointment {
+    private static int idCounter = 0;
+    private final int id;
+    private final Date date;
+    private final LocalTime time;
 
-    public Appointment(Patient patient, Doctor doctor, Date date, String time) {
-        id++;
-        this.patient = patient;
-        this.doctor = doctor;
-        this.date = date;
-        this.time = time;
+    public Appointment(String date, String time) throws ParseException, DateTimeParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM/dd/yyyy", Locale.ENGLISH);
+
+        this.id = ++idCounter;
+        this.date = dateFormat.parse(date);
+        this.time = LocalTime.parse(time);
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public int getId() {
+        return id;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    @Override
-    public void schedule(Date date, String time) {
-
     }
 }
