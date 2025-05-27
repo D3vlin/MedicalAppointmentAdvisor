@@ -12,10 +12,9 @@ public abstract class Appointment {
     private final int id;
     private final Date date;
     private final LocalTime time;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM/dd/yyyy", Locale.ENGLISH);
 
     public Appointment(String date, String time) throws ParseException, DateTimeParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM/dd/yyyy", Locale.ENGLISH);
-
         this.id = ++idCounter;
         this.date = dateFormat.parse(date);
         this.time = LocalTime.parse(time);
@@ -31,5 +30,14 @@ public abstract class Appointment {
 
     public LocalTime getTime() {
         return time;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id= " + id +
+                ", date= " + dateFormat.format(date) +
+                ", time= " + time +
+                '}';
     }
 }

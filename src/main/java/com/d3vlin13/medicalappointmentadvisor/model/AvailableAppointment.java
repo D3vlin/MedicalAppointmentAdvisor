@@ -6,4 +6,6 @@ public class AvailableAppointment extends Appointment {
     public AvailableAppointment(String date, String time) throws ParseException {
         super(date, time);
     }
+
+
 }

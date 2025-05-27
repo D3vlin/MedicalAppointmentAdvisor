@@ -31,7 +31,7 @@ public final class UIDoctorMenu {
             return true;
         });
         actions.put(2, () -> {
-            UIDoctorMenu.showAddAvailableAppointmentsMenu();
+            UIDoctorMenu.showMyScheduleAppointments();
             return true;
         });
 
@@ -104,5 +104,14 @@ public final class UIDoctorMenu {
 
         MenuUtils.showMenu("Your available date is: " + availableDate + " " + availableHour, options, actions);
         return changeDate[0];
+    }
+
+    private static void showMyScheduleAppointments() {
+        Printer.progressBar("Processing", 20, 100);
+        Printer.logSystem("::My Schedule Appointments");
+
+        for (AvailableAppointment availableAppointment : doctorLogged.getAvailableAppointments()) {
+            Printer.logSystem(availableAppointment.toString());
+        }
     }
 }

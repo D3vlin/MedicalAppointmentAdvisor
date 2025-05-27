@@ -1,8 +1,10 @@
 package com.d3vlin13.medicalappointmentadvisor.datastore;
 
+import com.d3vlin13.medicalappointmentadvisor.model.AvailableAppointment;
 import com.d3vlin13.medicalappointmentadvisor.model.Doctor;
 import com.d3vlin13.medicalappointmentadvisor.model.Patient;
 import com.d3vlin13.medicalappointmentadvisor.model.User;
+import com.d3vlin13.medicalappointmentadvisor.util.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +12,27 @@ import java.util.List;
 public final class DataStore {
     private static final DataStore instance = new DataStore();
     private static final List<Doctor> doctors = new ArrayList<>();
-    private static final List<Doctor> doctorsAvailableAppointments = new ArrayList<>();
+    public static final List<Doctor> doctorsAvailableAppointments = new ArrayList<>();
     private static final List<Patient> patients = new ArrayList<>();
 
     static {
-        doctors.add(new Doctor("general@email.com", "general", "Alejandro"));
-        doctors.add(new Doctor("optometrist@email.com", "optometrist", "Karen"));
+        try {
+            Doctor doctorGeneral = new Doctor("general@email.com", "general", "Alejandro");
+            doctorGeneral.addAvailableAppointments(new AvailableAppointment("June/10/2025", "10:00"));
+            doctorGeneral.addAvailableAppointments(new AvailableAppointment("June/11/2025", "14:00"));
+            doctors.add(doctorGeneral);
+            checkDoctorAvailableAppointments(doctorGeneral);
+
+            Doctor doctorOptometrist = new Doctor("optometrist@email.com", "optometrist", "Fernando");
+            doctorOptometrist.addAvailableAppointments(new AvailableAppointment("July/23/2025", "12:00"));
+            doctorOptometrist.addAvailableAppointments(new AvailableAppointment("July/24/2025", "16:00"));
+            doctors.add(doctorOptometrist);
+            checkDoctorAvailableAppointments(doctorOptometrist);
+
+            doctors.add(new Doctor("optometrist@email.com", "optometrist", "Karen"));
+        } catch (Exception e) {
+            Printer.logError("Error creating DataStore");
+        }
 
         patients.add(new Patient("pepito@email.com", "pepito", "Pepito"));
     }
@@ -52,4 +69,6 @@ public final class DataStore {
             doctorsAvailableAppointments.add(doctor);
         }
     }
+
+
 }
